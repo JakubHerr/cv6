@@ -22,13 +22,15 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("printAll", catalog.printAll());
         return "home.html";
     }
 
     @PostMapping("/")
     public String searchInCatalog(@RequestParam("query") String query, Model model) {
-        model.addAttribute("result", catalog.find(query));
+        model.addAttribute("printAll", catalog.printAll());
+        if (!query.isEmpty()) model.addAttribute("result", catalog.find(query));
         return "home.html";
     }
 

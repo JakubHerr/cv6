@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
+<div>
+    <h3>Celý obsah katalogu:</h3>
+    <li th:each="item : ${printAll}" th:text="${item}"></li>
+</div>
+<hr>
 <h1>Vyhledávání v katalogu</h1>
 <form action="#" th:action="@{/}" method="post">
     <input type="text" id="query" name="query">

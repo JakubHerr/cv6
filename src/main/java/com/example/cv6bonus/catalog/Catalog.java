@@ -46,30 +46,30 @@ public class Catalog {
         this.storedItem4 = storedItem4;
     }
 
-    public String printAll() {
-        String result = "";
+    public List<String> printAll() {
+        List<String> results = new ArrayList<>();
 
         if (storedItem1 != null) {
-            result += " - " + storedItem1.getDisplayName() + "\n";
+            results.add(storedItem1.getDisplayName());
         }
 
         if (storedItem2 != null) {
-            result += " - " + storedItem2.getDisplayName() + "\n";
+            results.add(storedItem2.getDisplayName());
         }
 
         if (storedItem3 != null) {
-            result += " - " + storedItem3.getDisplayName() + "\n";
+            results.add(storedItem3.getDisplayName());
         }
 
         if (storedItem4 != null) {
-            result += " - " + storedItem4.getDisplayName() + "\n";
+            results.add(storedItem4.getDisplayName());
         }
 
-        if (result.isEmpty()) {
-            result = "Žádný záznam nevyhovuje...";
+        if (results.isEmpty()) {
+            results.add("Žádný záznam nevyhovuje...");
         }
 
-        return result;
+        return results;
     }
 
     public List<String> find (String query) {
