@@ -7,16 +7,14 @@ import com.example.cv6bonus.document.Document;
 import com.example.cv6bonus.document.Interview;
 import com.example.cv6bonus.document.WebPage;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
     @GetMapping("/")
-    public String home() {
-        return "home.html";
-    }
-
-    public static void oldMain(String[] args) {
+    public String home(Model model) {
+        StringBuilder output = new StringBuilder();
         Catalog catalog = new Catalog();
 
         Book book = new Book(
@@ -53,17 +51,18 @@ public class HomeController {
 
         String all = catalog.printAll();
 
-        System.out.println("Vypisuji vše:");
-        System.out.print(all);
-
-        System.out.println();
+        output.append("Vypisuji vše:\n");
+        output.append(all);
 
         String query = "život";
         String result = catalog.find(query);
-        System.out.println("Vyhledávám výraz '" + query + "':");
-        System.out.println(result);
+        output.append("Vyhledávám výraz '").append(query).append("':\n");
+        output.append(result);
 
-        System.out.println(page.printContents());
-        System.out.println(document.printContents());
+        output.append(page.printContents());
+        output.append(document.printContents());
+
+        model.addAttribute("output", output.toString());
+        return "home.html";
     }
 }
