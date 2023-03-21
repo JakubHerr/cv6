@@ -9,5 +9,4 @@ public class Cv6bonusApplication {
     public static void main(String[] args) {
         SpringApplication.run(Cv6bonusApplication.class, args);
     }
-
 }
