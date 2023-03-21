@@ -4,6 +4,9 @@ package com.example.cv6bonus.catalog;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Catalog {
     private Searchable storedItem1;
     private Searchable storedItem2;
@@ -69,30 +72,29 @@ public class Catalog {
         return result;
     }
 
-    public String find (String query) {
-        String result = "";
+    public List<String> find (String query) {
+        List<String> results = new ArrayList<>();
 
         if (storedItem1.prepareSearchableString().contains(query)) {
-            result += " - " + storedItem1.getDisplayName() + "\n";
+            results.add(storedItem1.getDisplayName());
         }
 
         if (storedItem2.prepareSearchableString().contains(query)) {
-            result += " - " + storedItem2.getDisplayName() + "\n";
+            results.add(storedItem2.getDisplayName());
         }
 
         if (storedItem3.prepareSearchableString().contains(query)) {
-            result += " - " + storedItem3.getDisplayName() + "\n";
+            results.add(storedItem3.getDisplayName());
         }
 
         if (storedItem4.prepareSearchableString().contains(query)) {
-            result += " - " + storedItem4.getDisplayName() + "\n";
+            results.add(storedItem4.getDisplayName());
         }
 
-        if (result.isEmpty()) {
-            result = "Žádný záznam nevyhovuje...";
+        if (results.isEmpty()) {
+            results.add("Žádný záznam nevyhovuje...");
         }
 
-        logger.info("Searched catalog for query: " + query);
-        return result;
+        return results;
     }
 }

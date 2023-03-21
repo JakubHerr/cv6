@@ -9,14 +9,30 @@ import com.example.cv6bonus.document.WebPage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-    @GetMapping("/")
-    public String home(Model model) {
-        StringBuilder output = new StringBuilder();
-        Catalog catalog = new Catalog();
+    Catalog catalog;
 
+    public HomeController() {
+        this.catalog = new Catalog();
+        initCatalog();
+    }
+
+    @GetMapping("/")
+    public String home() {
+        return "home.html";
+    }
+
+    @PostMapping("/")
+    public String searchInCatalog(@RequestParam("query") String query, Model model) {
+        model.addAttribute("result", catalog.find(query));
+        return "home.html";
+    }
+
+    private void initCatalog() {
         Book book = new Book(
                 "Dášeňka čili život štěněte",
                 "978-80-242-2614-9",
@@ -48,21 +64,5 @@ public class HomeController {
         catalog.setStoredItem2(page);
         catalog.setStoredItem3(document);
         catalog.setStoredItem4(interview);
-
-        String all = catalog.printAll();
-
-        output.append("Vypisuji vše:\n");
-        output.append(all);
-
-        String query = "život";
-        String result = catalog.find(query);
-        output.append("Vyhledávám výraz '").append(query).append("':\n");
-        output.append(result);
-
-        output.append(page.printContents());
-        output.append(document.printContents());
-
-        model.addAttribute("output", output.toString());
-        return "home.html";
     }
 }

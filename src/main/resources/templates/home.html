@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<h3 th:text="${output}"></h3>
+<h1>Vyhledávání v katalogu</h1>
+<form action="#" th:action="@{/}" method="post">
+    <input type="text" id="query" name="query">
+    <button type="submit">Hledat</button>
+</form>
+<hr>
+<div th:if="${result}">
+    <h2>Výsledky:</h2>
+    <ul>
+        <li th:each="item : ${result}" th:text="${item}"></li>
+    </ul>
+</div>
 </body>
 </html>
